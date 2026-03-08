@@ -22,7 +22,7 @@ export default function AboutSection() {
 
         <div className="about-layout" style={{ marginTop: '2.5rem' }}>
           <AnimateIn direction="left" delay={0.2}>
-            <div className="about-photo-placeholder">
+            <div className="about-photo-placeholder about-photo-small">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2">
                 <circle cx="12" cy="8" r="4" />
                 <path d="M20 21a8 8 0 00-16 0" />
@@ -32,7 +32,7 @@ export default function AboutSection() {
           </AnimateIn>
 
           <AnimateIn direction="right" delay={0.3}>
-            <div className="about-content">
+            <div className="about-content about-content-box">
               <h3 className="about-name">Level One</h3>
               <div className="about-role">Premier Systems Partner</div>
               <p>
