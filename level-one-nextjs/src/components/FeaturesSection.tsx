@@ -22,8 +22,6 @@ export default function FeaturesSection() {
 
   const current = hexSystems[active];
 
-  const inactiveItems = hexSystems.filter((_, i) => i !== active);
-
   return (
     <section id="features">
       <div className="section-inner section-inner-wide">
@@ -49,44 +47,41 @@ export default function FeaturesSection() {
         </AnimateIn>
 
         <AnimateIn direction="up" delay={0.3}>
-          <div className="hex-showcase">
-            <div className="hex-showcase-hexes">
-              {inactiveItems.map((sys) => {
-                const originalIndex = hexSystems.indexOf(sys);
-                return (
-                  <motion.div
-                    key={sys.key}
-                    className="hex-small-item"
-                    onClick={() => setActive(originalIndex)}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <img src={sys.img} alt={sys.title} />
-                  </motion.div>
-                );
-              })}
-              <div className="hex-large-wrap">
-                <motion.img
-                  key={current.key}
-                  src={current.img}
-                  alt={current.title}
-                  initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                />
-              </div>
+          <div className="features-layout">
+            {/* Left: vertical stacked buttons */}
+            <div className="features-nav">
+              {hexSystems.map((sys, i) => (
+                <button
+                  key={sys.key}
+                  className={`features-nav-btn ${i === active ? 'active' : ''}`}
+                  onClick={() => setActive(i)}
+                >
+                  <span className="features-nav-num">0{i + 1}</span>
+                  <span className="features-nav-title">{sys.title}</span>
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" className="features-nav-arrow">
+                    <path d="M4 1l5 5-5 5" />
+                  </svg>
+                </button>
+              ))}
             </div>
 
+            {/* Right: info card with background image */}
             <div
               ref={cardRef}
-              className="hex-info-card"
+              className="features-display"
               onMouseMove={handleCardMouseMove}
               onMouseLeave={() => setCardGlow({ x: 0, y: 0, active: false })}
-              style={{
-                position: 'relative',
-                overflow: 'hidden',
-              }}
             >
+              <motion.div
+                key={current.key}
+                className="features-display-bg"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                style={{ backgroundImage: `url(${current.img})` }}
+              />
+              <div className="features-display-overlay" />
+
               {cardGlow.active && (
                 <div
                   style={{
@@ -94,20 +89,21 @@ export default function FeaturesSection() {
                     width: '300px',
                     height: '300px',
                     borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%)',
+                    background: 'radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%)',
                     left: cardGlow.x - 150,
                     top: cardGlow.y - 150,
                     pointerEvents: 'none',
-                    transition: 'left 0.15s ease, top 0.15s ease',
+                    zIndex: 3,
                   }}
                 />
               )}
+
               <motion.div
-                key={current.key}
-                initial={{ opacity: 0, y: 10 }}
+                key={current.key + '-content'}
+                className="features-display-content"
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4 }}
-                style={{ position: 'relative', zIndex: 1 }}
+                transition={{ duration: 0.4, delay: 0.1 }}
               >
                 <div className="hex-info-labels">
                   {current.labels.map((l) => (
