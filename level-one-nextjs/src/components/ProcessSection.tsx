@@ -4,7 +4,14 @@ import { useRef, useState } from 'react';
 import AnimateIn from './AnimateIn';
 import { processPhases } from '@/data/siteData';
 
-function ProcessCard({ phase, index }: { phase: typeof processPhases[0]; index: number }) {
+interface Phase {
+  num: string;
+  title: string;
+  desc: string;
+  img: string;
+}
+
+function ProcessCard({ phase, index }: { phase: Phase; index: number }) {
   const cardRef = useRef<HTMLDivElement>(null);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -29,7 +36,6 @@ function ProcessCard({ phase, index }: { phase: typeof processPhases[0]; index: 
         }}
       >
         <div className="process-hex-img">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={phase.img} alt={phase.title} />
         </div>
         <div className="process-hex-overlay">
