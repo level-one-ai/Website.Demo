@@ -27,9 +27,9 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
             src={service.img}
             alt={service.title}
             style={{
-              filter: hovered ? 'brightness(0.5) saturate(1.3)' : 'brightness(0.8)',
-              transform: hovered ? 'scale(1.08)' : 'scale(1)',
-              transition: 'all 0.6s ease',
+              filter: hovered ? 'brightness(1) saturate(1.2)' : 'brightness(0.35)',
+              transform: hovered ? 'scale(1.1)' : 'scale(1)',
+              transition: 'all 0.5s ease',
             }}
           />
           <span className="srv-card-num">{service.num}</span>
@@ -72,7 +72,7 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
 export default function ServicesSection() {
   return (
     <section id="services" className="services-section">
-      <div className="section-inner">
+      <div className="section-inner section-inner-wide">
         <AnimateIn direction="up" style={{ textAlign: 'center' }}>
           <div className="section-num">
             <span className="pulse" /> 04 — Infrastructure Catalog
@@ -94,7 +94,7 @@ export default function ServicesSection() {
           </p>
         </AnimateIn>
 
-        <div className="services-grid">
+        <div className="services-grid services-grid-4col">
           {services.map((service, i) => (
             <ServiceCard key={service.num} service={service} index={i} />
           ))}
