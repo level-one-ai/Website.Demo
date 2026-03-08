@@ -5,7 +5,14 @@ import { motion } from 'framer-motion';
 import AnimateIn from './AnimateIn';
 import { services } from '@/data/siteData';
 
-function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+interface Service {
+  num: string;
+  title: string;
+  pills: string[];
+  img: string;
+}
+
+function ServiceCard({ service, index }: { service: Service; index: number }) {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -16,7 +23,6 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
         onMouseLeave={() => setHovered(false)}
       >
         <div className="srv-card-visual">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={service.img}
             alt={service.title}
@@ -43,7 +49,6 @@ function ServiceCard({ service, index }: { service: typeof services[0]; index: n
             ))}
           </motion.div>
 
-          {/* Gradient shimmer on hover */}
           <motion.div
             style={{
               position: 'absolute',
