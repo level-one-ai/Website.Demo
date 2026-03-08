@@ -50,10 +50,10 @@ export default function ReviewsSection() {
                 exit="exit"
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="review-card">
+                <div className="review-card review-card-centered">
                   <div className="review-stars">★★★★★</div>
                   <p className="review-text">&ldquo;{review.text}&rdquo;</p>
-                  <div>
+                  <div className="review-author-centered">
                     <div className="review-name">{review.name}</div>
                     <div className="review-role">{review.role}</div>
                   </div>
