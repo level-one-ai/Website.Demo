@@ -22,6 +22,8 @@ export default function FeaturesSection() {
 
   const current = hexSystems[active];
 
+  const inactiveItems = hexSystems.filter((_, i) => i !== active);
+
   return (
     <section id="features">
       <div className="section-inner section-inner-wide">
@@ -49,18 +51,20 @@ export default function FeaturesSection() {
         <AnimateIn direction="up" delay={0.3}>
           <div className="hex-showcase">
             <div className="hex-showcase-hexes">
-              {hexSystems.filter((_, i) => i !== active).map((sys, idx) => (
-                <motion.div
-                  key={sys.key}
-                  className={`hex-small-item`}
-                  onClick={() => setActive(hexSystems.indexOf(sys))}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={sys.img} alt={sys.title} />
-                </motion.div>
-              ))}
+              {inactiveItems.map((sys) => {
+                const originalIndex = hexSystems.indexOf(sys);
+                return (
+                  <motion.div
+                    key={sys.key}
+                    className="hex-small-item"
+                    onClick={() => setActive(originalIndex)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <img src={sys.img} alt={sys.title} />
+                  </motion.div>
+                );
+              })}
               <div className="hex-large-wrap">
                 <motion.img
                   key={current.key}
@@ -83,7 +87,6 @@ export default function FeaturesSection() {
                 overflow: 'hidden',
               }}
             >
-              {/* Glow follow cursor effect */}
               {cardGlow.active && (
                 <div
                   style={{
