@@ -1,11 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
-import { motion, useInView, Variant } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 
 type AnimDirection = 'up' | 'down' | 'left' | 'right' | 'scale' | 'fade';
 
-const getInitial = (direction: AnimDirection): Variant => {
+const getInitial = (direction: AnimDirection) => {
   switch (direction) {
     case 'up': return { opacity: 0, y: 50 };
     case 'down': return { opacity: 0, y: -50 };
@@ -13,15 +13,17 @@ const getInitial = (direction: AnimDirection): Variant => {
     case 'right': return { opacity: 0, x: 60 };
     case 'scale': return { opacity: 0, scale: 0.85 };
     case 'fade': return { opacity: 0 };
+    default: return { opacity: 0 };
   }
 };
 
-const getAnimate = (direction: AnimDirection): Variant => {
+const getAnimate = (direction: AnimDirection) => {
   switch (direction) {
     case 'up': case 'down': return { opacity: 1, y: 0 };
     case 'left': case 'right': return { opacity: 1, x: 0 };
     case 'scale': return { opacity: 1, scale: 1 };
     case 'fade': return { opacity: 1 };
+    default: return { opacity: 1 };
   }
 };
 
