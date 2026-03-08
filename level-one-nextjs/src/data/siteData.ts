@@ -144,6 +144,21 @@ export const pricingTiers = [
   },
 ];
 
+export const comparisonRows = [
+  { feature: 'Growth Systems', proto: '3 Targeted', pilot: 'Complete Department', arch: 'Unlimited' },
+  { feature: 'Logic Deployment', proto: 'Standardized', pilot: 'Custom', arch: 'Fully Bespoke' },
+  { feature: 'Memory Systems (Vector DB)', proto: '✓', pilot: '✓', arch: '✓' },
+  { feature: 'Support Channel', proto: 'Email (48hr SLA)', pilot: 'Direct Slack', arch: 'Priority Slack' },
+  { feature: 'Performance Monitoring', proto: '✓', pilot: '✓', arch: '✓' },
+  { feature: 'Monthly Optimization', proto: '✓', pilot: '✓', arch: '✓' },
+  { feature: 'Dedicated Engineer', proto: '—', pilot: '✓', arch: '✓' },
+  { feature: 'Cross-Departmental Orchestration', proto: '—', pilot: '—', arch: '✓' },
+  { feature: 'Weekly Strategy Sessions', proto: '—', pilot: '—', arch: '✓' },
+  { feature: 'Custom Security Protocols', proto: '—', pilot: '—', arch: '✓' },
+  { feature: 'Private Cloud Infrastructure', proto: '—', pilot: '—', arch: '✓' },
+  { feature: 'Deployment Sprint', proto: 'Standard Timeline', pilot: '14-Day Sprint', arch: 'Custom Schedule' },
+];
+
 export const faqItems = [
   {
     q: 'How long does the whole process take from start to finish?',
@@ -199,10 +214,47 @@ export const reviews = [
   },
 ];
 
-export const menuLinks = [
-  { name: 'Systems', href: '#features' },
-  { name: 'Architecture', href: '#process' },
+export interface MenuSubsection {
+  name: string;
+  href: string;
+}
+
+export interface MenuLink {
+  name: string;
+  href: string;
+  subsections?: MenuSubsection[];
+}
+
+export const menuLinks: MenuLink[] = [
+  {
+    name: 'Systems',
+    href: '#features',
+    subsections: [
+      { name: 'Revenue Engines', href: '#features' },
+      { name: 'Resolution Systems', href: '#features' },
+      { name: 'Systems Architecture', href: '#features' },
+      { name: 'Operational Autonomy', href: '#features' },
+    ],
+  },
+  {
+    name: 'Architecture',
+    href: '#process',
+    subsections: [
+      { name: 'Systems Audit', href: '#process' },
+      { name: 'Infrastructure Deployment', href: '#process' },
+      { name: 'Performance Monitoring', href: '#process' },
+    ],
+  },
   { name: 'Entity', href: '#about' },
-  { name: 'Solutions', href: '#services' },
+  {
+    name: 'Solutions',
+    href: '#services',
+    subsections: [
+      { name: 'Lead Generation', href: '#services' },
+      { name: 'Project Management', href: '#services' },
+      { name: 'Hiring Systems', href: '#services' },
+      { name: 'Sales Administration', href: '#services' },
+    ],
+  },
   { name: 'Pricing', href: '#pricing' },
 ];
