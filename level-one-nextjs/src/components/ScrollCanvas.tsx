@@ -8,16 +8,18 @@ export default function ScrollCanvas({ scrollProgress }: { scrollProgress: numbe
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const loadedRef = useRef<Set<number>>(new Set());
   const rafRef = useRef<number>(0);
-  const smoothFrameRef = useRef(0);
+  const smoothFrameRef = useRef<number>(0);
 
   useEffect(() => {
-    // Preload images
+    const imgs: HTMLImageElement[] = [];
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
       img.src = CANVAS_FRAME_URL(i + 1);
-      img.onload = () => loadedRef.current.add(i);
-      imagesRef.current[i] = img;
+      const index = i;
+      img.onload = () => { loadedRef.current.add(index); };
+      imgs.push(img);
     }
+    imagesRef.current = imgs;
   }, []);
 
   const render = useCallback((frameIndex: number) => {
@@ -30,6 +32,7 @@ export default function ScrollCanvas({ scrollProgress }: { scrollProgress: numbe
     if (!loadedRef.current.has(idx)) return;
 
     const img = imagesRef.current[idx];
+    if (!img) return;
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
     const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
