@@ -33,7 +33,17 @@ export default function FAQSection() {
             {faqItems.map((item, i) => {
               const isOpen = openIndex === i;
               return (
-                <div key={i} className={`faq-item ${isOpen ? 'open' : ''}`}>
+                <div
+                  key={i}
+                  className={`faq-item ${isOpen ? 'open' : ''}`}
+                  style={{
+                    background: isOpen ? 'rgba(10, 10, 14, 0.85)' : 'transparent',
+                    borderRadius: isOpen ? '12px' : '0',
+                    padding: isOpen ? '0 1.25rem' : '0',
+                    margin: isOpen ? '0.25rem 0' : '0',
+                    transition: 'background 0.3s ease, padding 0.3s ease, border-radius 0.3s ease',
+                  }}
+                >
                   <button
                     className="faq-btn"
                     onClick={() => setOpenIndex(isOpen ? null : i)}
