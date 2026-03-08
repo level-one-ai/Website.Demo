@@ -1,11 +1,22 @@
 'use client';
 
 import { useRef, useState } from 'react';
-import { motion } from 'framer-motion';
 import AnimateIn from './AnimateIn';
 import { pricingTiers } from '@/data/siteData';
 
-function PricingCard({ tier, index }: { tier: typeof pricingTiers[0]; index: number }) {
+interface Tier {
+  title: string;
+  subtitle: string;
+  price: string;
+  period: string;
+  monthly: string;
+  commitment: string;
+  features: string[];
+  btnText: string;
+  featured: boolean;
+}
+
+function PricingCard({ tier, index }: { tier: Tier; index: number }) {
   const ref = useRef<HTMLDivElement>(null);
   const [glow, setGlow] = useState({ x: 50, y: 50 });
 
