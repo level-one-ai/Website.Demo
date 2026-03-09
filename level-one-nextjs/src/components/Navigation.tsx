@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { menuLinks, MenuSubsection } from '@/data/siteData';
 
@@ -8,15 +8,23 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<MenuSubsection[] | null>(null);
   const [submenuTitle, setSubmenuTitle] = useState('');
+  const [scrollbarWidth, setScrollbarWidth] = useState(0);
+
+  useEffect(() => {
+    setScrollbarWidth(window.innerWidth - document.documentElement.clientWidth);
+  }, []);
 
   const toggleMenu = useCallback(() => {
     setMenuOpen((prev) => {
       if (!prev) {
+        const sbw = window.innerWidth - document.documentElement.clientWidth;
         document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = `${sbw}px`;
         setActiveSubmenu(null);
         setSubmenuTitle('');
       } else {
         document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
       }
       return !prev;
     });
@@ -26,6 +34,7 @@ export default function Navigation() {
     setMenuOpen(false);
     setActiveSubmenu(null);
     document.body.style.overflow = 'auto';
+    document.body.style.paddingRight = '0px';
     setTimeout(() => {
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -82,7 +91,6 @@ export default function Navigation() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            style={{ opacity: 1, pointerEvents: 'auto' }}
           >
             <div className="menu-items-wrap">
               {items.map((item, i) => (
