@@ -28,7 +28,7 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 3.6, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
         >
-          The premier systems partner for high-growth business.
+          The premier systems partner<br />for high-growth business.
         </motion.h1>
 
         <motion.p
