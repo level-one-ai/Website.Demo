@@ -33,8 +33,13 @@ export default function ScrollCanvas({ scrollProgress }: { scrollProgress: numbe
 
     const img = imagesRef.current[idx];
     if (!img) return;
+
     canvas.width = canvas.clientWidth;
     canvas.height = canvas.clientHeight;
+
+    // Clear canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     const scale = Math.max(canvas.width / img.width, canvas.height / img.height);
     ctx.drawImage(
       img,
