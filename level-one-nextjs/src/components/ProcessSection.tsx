@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import AnimateIn from './AnimateIn';
 import { processPhases } from '@/data/siteData';
 
@@ -12,30 +12,14 @@ interface Phase {
 }
 
 function ProcessCard({ phase, index }: { phase: Phase; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
   const [hovered, setHovered] = useState(false);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    setTilt({ x: y * -8, y: x * 8 });
-  };
-
   return (
-    <AnimateIn direction="up" delay={index * 0.15}>
+    <AnimateIn direction="up" delay={0.2 + index * 0.2}>
       <div
-        ref={cardRef}
         className="process-hex"
-        onMouseMove={handleMouseMove}
-        onMouseLeave={() => { setTilt({ x: 0, y: 0 }); setHovered(false); }}
         onMouseEnter={() => setHovered(true)}
-        style={{
-          transform: `perspective(800px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          transition: 'transform 0.15s ease-out, border-color 0.4s ease',
-        }}
+        onMouseLeave={() => setHovered(false)}
       >
         <div className="process-hex-img">
           <img
@@ -76,14 +60,14 @@ export default function ProcessSection() {
           </h2>
         </AnimateIn>
 
-        <AnimateIn direction="up" delay={0.2} style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
+        <AnimateIn direction="up" delay={0.15} style={{ textAlign: 'center', marginLeft: 'auto', marginRight: 'auto' }}>
           <p className="section-desc" style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             We follow a structured deployment protocol focused on revenue growth, cost reduction,
             and operational efficiency across Scotland and the UK.
           </p>
         </AnimateIn>
 
-        <div className="process-hex-grid">
+        <div className="process-hex-grid" style={{ marginTop: '4rem' }}>
           {processPhases.map((phase, i) => (
             <ProcessCard key={phase.title} phase={phase} index={i} />
           ))}
