@@ -15,10 +15,13 @@ import FAQSection from '@/components/FAQSection';
 import ReviewsSection from '@/components/ReviewsSection';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
+import CalendarView from '@/components/CalendarView';
 
 export default function Home() {
   const [splashDone, setSplashDone] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const [calendarTier, setCalendarTier] = useState<string | null>(null);
   const mainRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = useCallback(() => {
@@ -32,6 +35,15 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
+
+  // Expose openCalendar globally for pricing buttons
+  useEffect(() => {
+    (window as any).openCalendar = (tier?: string) => {
+      setCalendarTier(tier || null);
+      setCalendarOpen(true);
+      window.scrollTo(0, 0);
+    };
+  }, []);
 
   return (
     <>
@@ -49,18 +61,26 @@ export default function Home() {
 
       <Navigation />
 
-      <div ref={mainRef}>
-        <HeroSection />
-        <FeaturesSection />
-        <ProcessSection />
-        <AboutSection />
-        <ServicesSection />
-        <PricingSection />
-        <FAQSection />
-        <ReviewsSection />
-        <CTASection />
-        <Footer />
-      </div>
+      {calendarOpen ? (
+        <CalendarView
+          visible={calendarOpen}
+          pricingTier={calendarTier}
+          onClose={() => setCalendarOpen(false)}
+        />
+      ) : (
+        <div ref={mainRef}>
+          <HeroSection />
+          <FeaturesSection />
+          <ProcessSection />
+          <AboutSection />
+          <ServicesSection />
+          <PricingSection />
+          <FAQSection />
+          <ReviewsSection />
+          <CTASection />
+          <Footer />
+        </div>
+      )}
     </>
   );
 }
