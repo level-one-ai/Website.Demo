@@ -37,7 +37,7 @@ export default function FeaturesSection() {
             {hexSystems.map((sys, i) => {
               const isOpen = active === i;
               return (
-                <div key={sys.key} className="feat-acc-item">
+                <div key={sys.key} className={`feat-acc-item-box ${isOpen ? 'open' : ''}`}>
                   <button
                     className={`feat-acc-header ${isOpen ? 'active' : ''}`}
                     onClick={() => setActive(isOpen ? null : i)}
