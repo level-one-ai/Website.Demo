@@ -32,8 +32,8 @@ function ServiceCard({ service, index }: { service: Service; index: number }) {
               transition: 'all 0.5s ease',
             }}
           />
-          <span className="srv-card-num">{service.num}</span>
-          <div className="srv-card-title">
+          {/* Title at top */}
+          <div className="srv-card-title-top">
             <span className="pill-dot-white" /> {service.title}
           </div>
           <motion.div
