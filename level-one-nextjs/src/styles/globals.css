@@ -17,7 +17,7 @@
   --ease-out-expo:cubic-bezier(0.16,1,0.3,1); --ease-out-back:cubic-bezier(0.34,1.56,0.64,1);
 }
 *{margin:0;padding:0;box-sizing:border-box}
-html{scrollbar-gutter:stable;scroll-behavior:smooth}
+html{scrollbar-gutter:stable both-edges;scroll-behavior:smooth;overflow-y:scroll}
 body{font-family:var(--body);background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;-webkit-font-smoothing:antialiased}
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--bg)}
@@ -41,9 +41,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1001;display:flex;justify-conten
 .hex-burger{width:42px;height:42px;padding:0;display:flex;align-items:center;justify-content:center;background:none;border:none;cursor:pointer;position:relative;z-index:1002;transition:opacity 0.3s,transform 0.5s var(--ease-out-back)}
 .hex-burger:active{transform:scale(0.95)}
 .hex-burger .hex-border{position:absolute;inset:0}
-.hex-burger .hex-border polygon{fill:transparent;stroke:rgba(255,255,255,0.4);stroke-width:1.5;transition:stroke 0.4s,fill 0.4s,filter 0.4s}
-.hex-burger:hover .hex-border polygon{stroke:#ffffff;fill:rgba(255,255,255,0.08);filter:drop-shadow(0 0 8px rgba(255,255,255,0.4))}
-.hex-burger.open .hex-border polygon{fill:rgba(255,255,255,0.1);stroke:#ffffff;filter:drop-shadow(0 0 12px rgba(255,255,255,0.5))}
+.hex-burger .hex-border polygon{fill:none;stroke:rgba(255,255,255,0.4);stroke-width:2.5;transition:stroke 0.4s,filter 0.4s}
+.hex-burger:hover .hex-border polygon{stroke:#ffffff;filter:drop-shadow(0 0 8px rgba(255,255,255,0.4))}
+.hex-burger.open .hex-border polygon{stroke:#ffffff;filter:drop-shadow(0 0 12px rgba(255,255,255,0.5))}
 
 /* ===== MENU OVERLAY ===== */
 .menu-overlay{position:fixed;inset:0;z-index:1000;background:rgba(5,5,7,0.92);backdrop-filter:blur(30px) saturate(1.2);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem}
@@ -90,9 +90,9 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 /* ===== FEATURES 01 — boxed accordion, bright image+text (change 4) ===== */
 .feat-accordion{display:flex;flex-direction:column;gap:0.75rem}
 
-.feat-acc-item-box{background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:0 1.5rem;transition:border-color 0.3s ease,background 0.3s ease}
+.feat-acc-item-box{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0 1.5rem;transition:border-color 0.3s ease,background 0.3s ease}
 .feat-acc-item-box:hover{border-color:var(--border-hover)}
-.feat-acc-item-box.open{border-color:var(--orange-border);background:rgba(255,107,53,0.02)}
+.feat-acc-item-box.open{border-color:var(--orange-border);background:rgba(255,255,255,0.06)}
 
 .feat-acc-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text);cursor:pointer;transition:color 0.3s ease}
 .feat-acc-header:hover{color:var(--white)}
@@ -194,7 +194,7 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 .faq-acc-item:first-child{border-top:1px solid var(--border)}
 .faq-acc-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text);font-family:var(--body);font-size:0.9rem;text-align:left;cursor:pointer;gap:1rem;transition:color 0.3s ease}
 .faq-acc-header:hover{color:var(--white)}
-.faq-acc-header.active{color:var(--white)}
+.faq-acc-header.active{color:var(--white);background:rgba(255,255,255,0.05);margin:0 -1.2rem;padding:1.2rem 1.2rem;border-radius:8px}
 .faq-acc-answer{padding:0 0 1.2rem 0;font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
 
 /* ===== REVIEWS ===== */
