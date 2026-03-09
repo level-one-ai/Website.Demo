@@ -33,7 +33,7 @@ export default function FAQSection() {
             {faqItems.map((item, i) => {
               const isOpen = openIndex === i;
               return (
-                <div key={i} className="faq-acc-item">
+                <div key={i} className={`faq-acc-item ${isOpen ? 'open' : ''}`}>
                   <button
                     className={`faq-acc-header ${isOpen ? 'active' : ''}`}
                     onClick={() => setOpenIndex(isOpen ? null : i)}
@@ -50,7 +50,7 @@ export default function FAQSection() {
                         transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
                         transition: 'transform 0.3s ease',
                         flexShrink: 0,
-                        color: isOpen ? 'var(--orange)' : 'var(--text-secondary)',
+                        color: isOpen ? 'var(--white)' : 'var(--text-secondary)',
                       }}
                     >
                       <path d="M4 6l4 4 4-4" />
