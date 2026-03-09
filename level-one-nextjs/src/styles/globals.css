@@ -90,9 +90,9 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 /* ===== FEATURES 01 — boxed accordion, bright image+text (change 4) ===== */
 .feat-accordion{display:flex;flex-direction:column;gap:0.75rem}
 
-.feat-acc-item-box{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:0 1.5rem;transition:border-color 0.3s ease,background 0.3s ease}
-.feat-acc-item-box:hover{border-color:var(--border-hover)}
-.feat-acc-item-box.open{border-color:var(--orange-border);background:rgba(255,255,255,0.06)}
+.feat-acc-item-box{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0 1.5rem;transition:border-color 0.3s ease,background 0.3s ease}
+.feat-acc-item-box:hover{border-color:var(--border-hover);background:rgba(255,255,255,0.035)}
+.feat-acc-item-box.open{border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.03)}
 
 .feat-acc-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text);cursor:pointer;transition:color 0.3s ease}
 .feat-acc-header:hover{color:var(--white)}
@@ -102,7 +102,7 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 .feat-acc-header.active .feat-acc-icon{color:var(--orange)}
 
 .feat-acc-body-bg{position:relative;border-radius:10px;overflow:hidden;background-size:cover;background-position:center;margin-bottom:1rem}
-.feat-acc-body-overlay{position:absolute;inset:0;background:rgba(5,5,7,0.65);z-index:1}
+.feat-acc-body-overlay{position:absolute;inset:0;background:rgba(5,5,7,0.5);z-index:1}
 .feat-acc-body-content{position:relative;z-index:2;padding:2rem 2.5rem}
 .feat-acc-labels{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:1rem}
 .feature-label{font-family:var(--mono);font-size:0.6rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--orange);background:var(--orange-dim);padding:0.2rem 0.6rem;border-radius:20px;border:1px solid var(--orange-border)}
@@ -155,31 +155,32 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 .pill-dot{width:4px;height:4px;border-radius:50%;background:var(--orange)}
 
 /* ===== PRICING 05 ===== */
-.pricing-background-box{background:rgba(10,10,14,0.6);border:1px solid var(--border);border-radius:24px;padding:4rem 2rem;margin:0 auto;max-width:1200px}
-.pricing-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem}
-.pricing-card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:2rem;display:flex;flex-direction:column;transition:all 0.4s ease;position:relative}
-.pricing-card:hover{border-color:var(--border-hover);transform:translateY(-4px)}
-.pricing-card.featured{border-color:var(--orange-border)}
-.pricing-card.featured:hover{border-color:var(--orange);box-shadow:0 0 60px rgba(255,107,53,0.08)}
+.pricing-background-box{padding:0;margin:0 auto;max-width:1200px;background:none;border:none;border-radius:0}
+.pricing-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2rem}
+.pricing-card{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:2.5rem 2rem;display:flex;flex-direction:column;transition:all 0.4s ease;position:relative}
+.pricing-card:hover{border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.035)}
+.pricing-card.featured{border-color:rgba(255,255,255,0.12);background:rgba(255,255,255,0.04)}
+.pricing-card.featured:hover{border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.05)}
 .best-value-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);background:var(--orange);padding:0.3rem 1rem;border-radius:20px;box-shadow:0 4px 15px rgba(255,107,53,0.3)}
-.pricing-title{font-family:var(--heading);font-size:1.3rem;font-weight:600;margin-bottom:0.5rem}
-.pricing-subtitle{font-size:0.82rem;color:var(--text-secondary);line-height:1.5;margin-bottom:1.5rem}
-.pricing-amount{font-family:var(--heading);font-size:2.2rem;font-weight:700;color:var(--white)}
-.pricing-period{font-family:var(--mono);font-size:0.65rem;color:var(--text-secondary);display:block;margin-top:0.25rem}
-.pricing-monthly{font-family:var(--mono);font-size:0.75rem;color:var(--orange);margin-top:0.5rem}
-.pricing-commitment{font-size:0.72rem;color:var(--text-muted);margin-top:0.25rem;margin-bottom:1.5rem}
+.pricing-title{font-family:var(--heading);font-size:1.2rem;font-weight:600;margin-bottom:0.75rem;color:var(--white)}
+.pricing-subtitle{font-size:0.82rem;color:var(--text-secondary);line-height:1.6;margin-bottom:2rem}
+.pricing-amount{font-family:var(--heading);font-size:2.5rem;font-weight:700;color:var(--white);display:inline}
+.pricing-period{font-family:var(--body);font-size:0.8rem;color:var(--text-secondary);display:inline;margin-left:0.4rem}
+.pricing-monthly{font-family:var(--mono);font-size:0.72rem;color:var(--text-secondary);margin-top:0.5rem}
+.pricing-commitment{font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;margin-bottom:1.75rem}
+.pricing-features-label{font-family:var(--body);font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500}
 .pricing-features{flex:1;margin-bottom:2rem;display:flex;flex-direction:column;gap:0.6rem}
-.pricing-feature{font-size:0.82rem;color:var(--text-secondary);padding-left:1.2rem;position:relative}
-.pricing-feature::before{content:'✓';position:absolute;left:0;color:var(--orange);font-size:0.75rem}
-.pricing-btn{width:100%;font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em;text-transform:uppercase;padding:0.85rem;border-radius:8px;cursor:pointer;transition:all 0.3s ease;border:1px solid var(--orange-border);background:transparent;color:var(--orange)}
-.pricing-btn:hover{background:var(--orange);color:var(--white);border-color:var(--orange)}
-.pricing-btn.solid{background:var(--orange);color:var(--white);border-color:var(--orange)}
-.pricing-btn.solid:hover{background:#ff8f65;box-shadow:0 0 30px rgba(255,107,53,0.3)}
-.compare-plans-btn{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--mono);font-size:0.75rem;letter-spacing:0.08em;color:var(--text-secondary);background:none;border:1px solid var(--border);padding:0.6rem 1.5rem;border-radius:50px;cursor:pointer;transition:all 0.3s ease}
-.compare-plans-btn:hover{color:var(--white);border-color:var(--border-hover)}
-.comparison-table-wrap{margin-top:2rem;overflow-x:auto}
+.pricing-feature{font-size:0.82rem;color:var(--text-secondary);padding-left:1.5rem;position:relative;line-height:1.5}
+.pricing-feature::before{content:'✓';position:absolute;left:0;color:var(--text-secondary);font-size:0.8rem}
+.pricing-btn{width:100%;font-family:var(--body);font-size:0.82rem;font-weight:600;letter-spacing:0.02em;padding:0.85rem;border-radius:10px;cursor:pointer;transition:all 0.3s ease;border:1px solid rgba(255,255,255,0.12);background:transparent;color:var(--white)}
+.pricing-btn:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.2)}
+.pricing-btn.solid{background:var(--white);color:#000;border-color:var(--white)}
+.pricing-btn.solid:hover{background:rgba(255,255,255,0.9);box-shadow:0 0 30px rgba(255,255,255,0.15)}
+.compare-plans-btn{display:inline-flex;align-items:center;gap:0.5rem;font-family:var(--body);font-size:0.82rem;font-weight:500;color:var(--text-secondary);background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);padding:0.7rem 1.5rem;border-radius:10px;cursor:pointer;transition:all 0.3s ease}
+.compare-plans-btn:hover{color:var(--white);border-color:rgba(255,255,255,0.15);background:rgba(255,255,255,0.04)}
+.comparison-table-wrap{margin-top:2rem;overflow-x:auto;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:1rem}
 .comparison-table{width:100%;border-collapse:collapse;text-align:center;font-size:0.8rem;color:var(--text-secondary)}
-.comparison-table th{font-family:var(--mono);font-size:0.7rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);padding:1rem 0.75rem;border-bottom:1px solid var(--border)}
+.comparison-table th{font-family:var(--body);font-size:0.75rem;font-weight:600;color:var(--text-secondary);padding:1rem 0.75rem;border-bottom:1px solid rgba(255,255,255,0.06)}
 .comparison-table td{padding:0.75rem;border-bottom:1px solid rgba(255,255,255,0.03)}
 .comparison-feature-col{text-align:left}
 .comparison-feature-name{text-align:left;color:var(--text);font-weight:500}
@@ -189,12 +190,13 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 .pricing-transparency-text{font-size:0.8rem;color:var(--text-secondary);line-height:1.6;max-width:600px;margin:0 auto}
 
 /* ===== FAQ 06 ===== */
-.faq-accordion{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:0}
-.faq-acc-item{border-bottom:1px solid var(--border)}
-.faq-acc-item:first-child{border-top:1px solid var(--border)}
-.faq-acc-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text);font-family:var(--body);font-size:0.9rem;text-align:left;cursor:pointer;gap:1rem;transition:color 0.3s ease}
+.faq-accordion{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:0.75rem}
+.faq-acc-item{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:0 1.5rem;transition:border-color 0.3s ease,background 0.3s ease}
+.faq-acc-item:hover{border-color:var(--border-hover);background:rgba(255,255,255,0.035)}
+.faq-acc-item.open{border-color:rgba(255,255,255,0.1);background:rgba(255,255,255,0.04)}
+.faq-acc-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text-secondary);font-family:var(--body);font-size:0.9rem;text-align:left;cursor:pointer;gap:1rem;transition:color 0.3s ease}
 .faq-acc-header:hover{color:var(--white)}
-.faq-acc-header.active{color:var(--white);background:rgba(255,255,255,0.05);margin:0 -1.2rem;padding:1.2rem 1.2rem;border-radius:8px}
+.faq-acc-header.active{color:var(--white)}
 .faq-acc-answer{padding:0 0 1.2rem 0;font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
 
 /* ===== REVIEWS ===== */
