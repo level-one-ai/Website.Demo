@@ -38,7 +38,6 @@ export default function FeaturesSection() {
               const isOpen = active === i;
               return (
                 <div key={sys.key} className="feat-acc-item">
-                  {/* Title card */}
                   <button
                     className={`feat-acc-header ${isOpen ? 'active' : ''}`}
                     onClick={() => setActive(isOpen ? null : i)}
@@ -61,7 +60,6 @@ export default function FeaturesSection() {
                     </svg>
                   </button>
 
-                  {/* Expanded content */}
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
@@ -71,8 +69,12 @@ export default function FeaturesSection() {
                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                         style={{ overflow: 'hidden' }}
                       >
-                        <div className="feat-acc-body">
-                          <div className="feat-acc-text">
+                        <div
+                          className="feat-acc-body-bg"
+                          style={{ backgroundImage: `url(${sys.img})` }}
+                        >
+                          <div className="feat-acc-body-overlay" />
+                          <div className="feat-acc-body-content">
                             <div className="feat-acc-labels">
                               {sys.labels.map((l) => (
                                 <span key={l} className="feature-label">{l}</span>
@@ -85,9 +87,6 @@ export default function FeaturesSection() {
                                 <path d="M5 1l5 5-5 5" />
                               </svg>
                             </button>
-                          </div>
-                          <div className="feat-acc-img-wrap">
-                            <img src={sys.img} alt={sys.title} className="feat-acc-img" />
                           </div>
                         </div>
                       </motion.div>
