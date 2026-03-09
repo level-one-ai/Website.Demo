@@ -12,14 +12,11 @@ export default function Navigation() {
   const toggleMenu = useCallback(() => {
     setMenuOpen((prev) => {
       if (!prev) {
-        const sbw = window.innerWidth - document.documentElement.clientWidth;
         document.body.style.overflow = 'hidden';
-        document.body.style.paddingRight = `${sbw}px`;
         setActiveSubmenu(null);
         setSubmenuTitle('');
       } else {
         document.body.style.overflow = 'auto';
-        document.body.style.paddingRight = '0px';
       }
       return !prev;
     });
@@ -29,7 +26,6 @@ export default function Navigation() {
     setMenuOpen(false);
     setActiveSubmenu(null);
     document.body.style.overflow = 'auto';
-    document.body.style.paddingRight = '0px';
     setTimeout(() => {
       const el = document.querySelector(href);
       if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
