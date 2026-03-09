@@ -12,6 +12,7 @@ export default function HeroSection() {
         </video>
       </div>
       <div className="hero-overlay" />
+      <div className="hero-bottom-fade" />
 
       <div className="hero-content">
         <motion.div
