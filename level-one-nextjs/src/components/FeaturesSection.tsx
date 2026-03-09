@@ -1,25 +1,12 @@
 'use client';
 
-import { useState, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import AnimateIn from './AnimateIn';
 import { hexSystems } from '@/data/siteData';
 
 export default function FeaturesSection() {
   const [active, setActive] = useState(0);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [cardGlow, setCardGlow] = useState({ x: 0, y: 0, active: false });
-
-  const handleCardMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setCardGlow({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-      active: true,
-    });
-  };
-
   const current = hexSystems[active];
 
   return (
@@ -47,80 +34,64 @@ export default function FeaturesSection() {
         </AnimateIn>
 
         <AnimateIn direction="up" delay={0.3}>
-          <div className="features-layout">
-            {/* Left: vertical stacked buttons */}
-            <div className="features-nav">
-              {hexSystems.map((sys, i) => (
-                <button
-                  key={sys.key}
-                  className={`features-nav-btn ${i === active ? 'active' : ''}`}
-                  onClick={() => setActive(i)}
-                >
-                  <span className="features-nav-num">0{i + 1}</span>
-                  <span className="features-nav-title">{sys.title}</span>
-                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="2" className="features-nav-arrow">
-                    <path d="M4 1l5 5-5 5" />
-                  </svg>
-                </button>
-              ))}
-            </div>
+          {/* Tab bar */}
+          <div className="feat-tabs">
+            {hexSystems.map((sys, i) => (
+              <button
+                key={sys.key}
+                className={`feat-tab ${i === active ? 'active' : ''}`}
+                onClick={() => setActive(i)}
+              >
+                <span className="feat-tab-dot" />
+                <span className="feat-tab-label">{sys.title}</span>
+              </button>
+            ))}
+          </div>
 
-            {/* Right: info card with background image */}
-            <div
-              ref={cardRef}
-              className="features-display"
-              onMouseMove={handleCardMouseMove}
-              onMouseLeave={() => setCardGlow({ x: 0, y: 0, active: false })}
-            >
+          {/* Content panel */}
+          <div className="feat-panel">
+            <AnimatePresence mode="wait">
               <motion.div
                 key={current.key}
-                className="features-display-bg"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
-                style={{ backgroundImage: `url(${current.img})` }}
-              />
-              <div className="features-display-overlay" />
-
-              {cardGlow.active && (
-                <div
-                  style={{
-                    position: 'absolute',
-                    width: '300px',
-                    height: '300px',
-                    borderRadius: '50%',
-                    background: 'radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%)',
-                    left: cardGlow.x - 150,
-                    top: cardGlow.y - 150,
-                    pointerEvents: 'none',
-                    zIndex: 3,
-                  }}
-                />
-              )}
-
-              <motion.div
-                key={current.key + '-content'}
-                className="features-display-content"
-                initial={{ opacity: 0, y: 15 }}
+                className="feat-panel-inner"
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               >
-                <div className="hex-info-labels">
-                  {current.labels.map((l) => (
-                    <span key={l} className="feature-label">{l}</span>
-                  ))}
+                {/* Image side */}
+                <div className="feat-img-wrap">
+                  <div className="feat-img-glow" />
+                  <img src={current.img} alt={current.title} className="feat-img" />
+                  <div className="feat-img-scanline" />
                 </div>
-                <h3 className="hex-info-title">{current.title}</h3>
-                <p className="hex-info-desc">{current.desc}</p>
-                <div className="hex-card-divider" />
-                <button className="hex-card-viewmore">
-                  View Full Specification{' '}
-                  <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 1l5 5-5 5" />
-                  </svg>
-                </button>
+
+                {/* Text side */}
+                <div className="feat-text">
+                  <div className="feat-text-header">
+                    <span className="feat-text-tag">SYSTEM</span>
+                    <span className="feat-text-status">
+                      <span className="feat-status-dot" />
+                      ACTIVE
+                    </span>
+                  </div>
+                  <h3 className="feat-text-title">{current.title}</h3>
+                  <div className="feat-labels">
+                    {current.labels.map((l) => (
+                      <span key={l} className="feature-label">{l}</span>
+                    ))}
+                  </div>
+                  <p className="feat-text-desc">{current.desc}</p>
+                  <div className="feat-text-divider" />
+                  <button className="hex-card-viewmore">
+                    View Full Specification{' '}
+                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M5 1l5 5-5 5" />
+                    </svg>
+                  </button>
+                </div>
               </motion.div>
-            </div>
+            </AnimatePresence>
           </div>
         </AnimateIn>
       </div>
