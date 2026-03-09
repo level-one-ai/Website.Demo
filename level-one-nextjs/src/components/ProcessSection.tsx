@@ -17,7 +17,7 @@ function ProcessCard({ phase, index }: { phase: Phase; index: number }) {
   return (
     <AnimateIn direction="up" delay={0.2 + index * 0.2}>
       <div
-        className="process-hex"
+        className={`process-hex ${hovered ? 'glass-hover' : ''}`}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
@@ -67,7 +67,7 @@ export default function ProcessSection() {
           </p>
         </AnimateIn>
 
-        <div className="process-hex-grid" style={{ marginTop: '4rem' }}>
+        <div className="process-hex-grid">
           {processPhases.map((phase, i) => (
             <ProcessCard key={phase.title} phase={phase} index={i} />
           ))}
