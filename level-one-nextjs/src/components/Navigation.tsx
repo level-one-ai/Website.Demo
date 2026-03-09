@@ -2,7 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LOGO_URL, menuLinks, MenuSubsection } from '@/data/siteData';
+import { menuLinks, MenuSubsection } from '@/data/siteData';
 
 export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -42,6 +42,13 @@ export default function Navigation() {
     setSubmenuTitle('');
   }, []);
 
+  const items = activeSubmenu === null
+    ? menuLinks.map((link) => ({ name: link.name, href: link.href, subs: link.subsections, isBack: false }))
+    : [
+        { name: `← Back`, href: '#', subs: undefined, isBack: true },
+        ...activeSubmenu.map((sub) => ({ name: sub.name, href: sub.href, subs: undefined, isBack: false })),
+      ];
+
   return (
     <>
       <nav>
@@ -53,7 +60,6 @@ export default function Navigation() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
           }}
         >
-          <img src={LOGO_URL} alt="Level One" />
           <span className="nav-logo-text">LEVEL ONE</span>
         </a>
 
@@ -71,94 +77,37 @@ export default function Navigation() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            className="menu-overlay open"
+            className="menu-overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4 }}
+            transition={{ duration: 0.5 }}
+            style={{ opacity: 1, pointerEvents: 'auto' }}
           >
-            <AnimatePresence mode="wait">
-              {activeSubmenu === null ? (
-                <motion.div
-                  key="main-menu"
-                  className="menu-items-wrap"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  {menuLinks.map((link, i) => (
-                    <motion.a
-                      key={link.name}
-                      className="menu-link"
-                      href={link.href}
-                      initial={{ opacity: 0, x: -60 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -60, transition: { delay: (menuLinks.length - 1 - i) * 0.05, duration: 0.3 } }}
-                      transition={{ delay: i * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (link.subsections) {
-                          openSubmenu(link.subsections, link.name);
-                        } else {
-                          handleLinkClick(link.href);
-                        }
-                      }}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      {link.name}
-                      {link.subsections && (
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '0.5rem', opacity: 0.4 }}>
-                          <path d="M6 3l5 5-5 5" />
-                        </svg>
-                      )}
-                    </motion.a>
-                  ))}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="sub-menu"
-                  className="menu-items-wrap"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.25 }}
-                >
-                  <motion.a
-                    className="menu-link menu-back-link"
-                    href="#"
-                    initial={{ opacity: 0, x: -60 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -60 }}
-                    transition={{ delay: 0, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    onClick={(e) => {
-                      e.preventDefault();
+            <div className="menu-items-wrap">
+              {items.map((item, i) => (
+                <motion.a
+                  key={item.name + (activeSubmenu ? 'sub' : 'main') + i}
+                  className={`menu-link ${item.isBack ? 'menu-back-link' : ''}`}
+                  href={item.href}
+                  initial={{ opacity: 0, x: 60 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.08, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (item.isBack) {
                       closeSubmenu();
-                    }}
-                  >
-                    ← {submenuTitle}
-                  </motion.a>
-                  {activeSubmenu.map((sub, i) => (
-                    <motion.a
-                      key={sub.name}
-                      className="menu-link menu-sub-link"
-                      href={sub.href}
-                      initial={{ opacity: 0, x: -60 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -60, transition: { delay: (activeSubmenu.length - i) * 0.05, duration: 0.3 } }}
-                      transition={{ delay: (i + 1) * 0.07, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleLinkClick(sub.href);
-                      }}
-                      style={{ cursor: 'pointer' }}
-                    >
-                      {sub.name}
-                    </motion.a>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                    } else if (item.subs) {
+                      openSubmenu(item.subs, item.name);
+                    } else {
+                      handleLinkClick(item.href);
+                    }
+                  }}
+                >
+                  {item.name}
+                </motion.a>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
