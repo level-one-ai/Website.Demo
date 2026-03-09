@@ -92,19 +92,19 @@ export default function Navigation() {
                 <motion.div
                   key="main-menu"
                   className="menu-items-wrap"
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.15 }}
                 >
                   {mainItems.map((item, i) => (
                     <motion.a
                       key={item.name}
                       className="menu-link"
                       href={item.href}
-                      initial={{ opacity: 0, x: 50 }}
+                      initial={{ opacity: 0, x: 40 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ delay: 0.05 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                       onClick={(e) => {
                         e.preventDefault();
                         if (item.subs) {
@@ -122,19 +122,19 @@ export default function Navigation() {
                 <motion.div
                   key="sub-menu"
                   className="menu-items-wrap menu-items-sub"
-                  initial={{ opacity: 0 }}
+                  initial={{ opacity: 1 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.15 }}
                 >
                   {subItems.map((item, i) => (
                     <motion.a
                       key={item.name + i}
                       className={`menu-link ${item.isBack ? 'menu-back-link' : 'menu-sub-link'}`}
                       href={item.href}
-                      initial={{ opacity: 0, x: 50 }}
+                      initial={{ opacity: 0, x: 40 }}
                       animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.06, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                      transition={{ delay: 0.05 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
                       onClick={(e) => {
                         e.preventDefault();
                         if (item.isBack) {
