@@ -29,34 +29,29 @@ export default function FAQSection() {
         </AnimateIn>
 
         <AnimateIn direction="up" delay={0.3}>
-          <div className="faq-list">
+          <div className="faq-accordion">
             {faqItems.map((item, i) => {
               const isOpen = openIndex === i;
               return (
-                <div
-                  key={i}
-                  className={`faq-item ${isOpen ? 'open' : ''}`}
-                  style={{
-                    background: isOpen ? 'rgba(10, 10, 14, 0.85)' : 'transparent',
-                    borderRadius: isOpen ? '12px' : '0',
-                    padding: isOpen ? '0 1.25rem' : '0',
-                    margin: isOpen ? '0.25rem 0' : '0',
-                    transition: 'background 0.3s ease, padding 0.3s ease, border-radius 0.3s ease',
-                  }}
-                >
+                <div key={i} className="faq-acc-item">
                   <button
-                    className="faq-btn"
+                    className={`faq-acc-header ${isOpen ? 'active' : ''}`}
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                   >
                     <span>{item.q}</span>
                     <svg
-                      className="faq-chevron"
                       width="16"
                       height="16"
                       viewBox="0 0 16 16"
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="2"
+                      style={{
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
+                        transition: 'transform 0.3s ease',
+                        flexShrink: 0,
+                        color: isOpen ? 'var(--orange)' : 'var(--text-secondary)',
+                      }}
                     >
                       <path d="M4 6l4 4 4-4" />
                     </svg>
@@ -67,10 +62,10 @@ export default function FAQSection() {
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                         style={{ overflow: 'hidden' }}
                       >
-                        <div className="faq-answer-body">{item.a}</div>
+                        <div className="faq-acc-answer">{item.a}</div>
                       </motion.div>
                     )}
                   </AnimatePresence>
