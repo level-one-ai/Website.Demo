@@ -6,8 +6,7 @@ import AnimateIn from './AnimateIn';
 import { hexSystems } from '@/data/siteData';
 
 export default function FeaturesSection() {
-  const [active, setActive] = useState(0);
-  const current = hexSystems[active];
+  const [active, setActive] = useState<number | null>(null);
 
   return (
     <section id="features">
@@ -34,64 +33,69 @@ export default function FeaturesSection() {
         </AnimateIn>
 
         <AnimateIn direction="up" delay={0.3}>
-          {/* Tab bar */}
-          <div className="feat-tabs">
-            {hexSystems.map((sys, i) => (
-              <button
-                key={sys.key}
-                className={`feat-tab ${i === active ? 'active' : ''}`}
-                onClick={() => setActive(i)}
-              >
-                <span className="feat-tab-dot" />
-                <span className="feat-tab-label">{sys.title}</span>
-              </button>
-            ))}
-          </div>
-
-          {/* Content panel */}
-          <div className="feat-panel">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.key}
-                className="feat-panel-inner"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {/* Image side */}
-                <div className="feat-img-wrap">
-                  <div className="feat-img-glow" />
-                  <img src={current.img} alt={current.title} className="feat-img" />
-                  <div className="feat-img-scanline" />
-                </div>
-
-                {/* Text side */}
-                <div className="feat-text">
-                  <div className="feat-text-header">
-                    <span className="feat-text-tag">SYSTEM</span>
-                    <span className="feat-text-status">
-                      <span className="feat-status-dot" />
-                      ACTIVE
-                    </span>
-                  </div>
-                  <h3 className="feat-text-title">{current.title}</h3>
-                  <div className="feat-labels">
-                    {current.labels.map((l) => (
-                      <span key={l} className="feature-label">{l}</span>
-                    ))}
-                  </div>
-                  <p className="feat-text-desc">{current.desc}</p>
-                  <div className="feat-text-divider" />
-                  <button className="hex-card-viewmore">
-                    View Full Specification{' '}
-                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2">
-                      <path d="M5 1l5 5-5 5" />
+          <div className="feat-accordion">
+            {hexSystems.map((sys, i) => {
+              const isOpen = active === i;
+              return (
+                <div key={sys.key} className="feat-acc-item">
+                  {/* Title card */}
+                  <button
+                    className={`feat-acc-header ${isOpen ? 'active' : ''}`}
+                    onClick={() => setActive(isOpen ? null : i)}
+                  >
+                    <span className="feat-acc-title">{sys.title}</span>
+                    <svg
+                      width="18"
+                      height="18"
+                      viewBox="0 0 18 18"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="feat-acc-icon"
+                      style={{
+                        transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
+                        transition: 'transform 0.3s ease',
+                      }}
+                    >
+                      <path d="M4 7l5 5 5-5" />
                     </svg>
                   </button>
+
+                  {/* Expanded content */}
+                  <AnimatePresence>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ overflow: 'hidden' }}
+                      >
+                        <div className="feat-acc-body">
+                          <div className="feat-acc-text">
+                            <div className="feat-acc-labels">
+                              {sys.labels.map((l) => (
+                                <span key={l} className="feature-label">{l}</span>
+                              ))}
+                            </div>
+                            <p className="feat-acc-desc">{sys.desc}</p>
+                            <button className="hex-card-viewmore">
+                              View Full Specification{' '}
+                              <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2">
+                                <path d="M5 1l5 5-5 5" />
+                              </svg>
+                            </button>
+                          </div>
+                          <div className="feat-acc-img-wrap">
+                            <img src={sys.img} alt={sys.title} className="feat-acc-img" />
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+              );
+            })}
           </div>
         </AnimateIn>
       </div>
