@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { menuLinks, MenuSubsection } from '@/data/siteData';
 
@@ -8,6 +8,22 @@ export default function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<MenuSubsection[] | null>(null);
   const [submenuTitle, setSubmenuTitle] = useState('');
+  const [showItems, setShowItems] = useState(false);
+  const itemsRef = useRef<HTMLDivElement>(null);
+
+  const staggerShow = useCallback(() => {
+    if (!itemsRef.current) return;
+    const links = itemsRef.current.querySelectorAll('.menu-link');
+    links.forEach((link, index) => {
+      const el = link as HTMLElement;
+      el.style.opacity = '0';
+      el.style.transform = 'translateX(60px)';
+      setTimeout(() => {
+        el.style.opacity = '1';
+        el.style.transform = 'translateX(0)';
+      }, index * 100);
+    });
+  }, []);
 
   const toggleMenu = useCallback(() => {
     setMenuOpen((prev) => {
@@ -15,16 +31,27 @@ export default function Navigation() {
         document.body.style.overflow = 'hidden';
         setActiveSubmenu(null);
         setSubmenuTitle('');
+        setShowItems(true);
       } else {
         document.body.style.overflow = 'auto';
+        setShowItems(false);
       }
       return !prev;
     });
   }, []);
 
+  useEffect(() => {
+    if (showItems) {
+      // Small delay to let DOM render before staggering
+      const t = setTimeout(staggerShow, 50);
+      return () => clearTimeout(t);
+    }
+  }, [showItems, staggerShow, activeSubmenu]);
+
   const handleLinkClick = useCallback((href: string) => {
     setMenuOpen(false);
     setActiveSubmenu(null);
+    setShowItems(false);
     document.body.style.overflow = 'auto';
     setTimeout(() => {
       const el = document.querySelector(href);
@@ -35,6 +62,7 @@ export default function Navigation() {
   const openSubmenu = useCallback((subs: MenuSubsection[], title: string) => {
     setActiveSubmenu(subs);
     setSubmenuTitle(title);
+    // staggerShow will fire via useEffect when activeSubmenu changes
   }, []);
 
   const closeSubmenu = useCallback(() => {
@@ -52,6 +80,8 @@ export default function Navigation() {
         ...activeSubmenu.map((sub) => ({ name: sub.name, href: sub.href, subs: undefined, isBack: false })),
       ]
     : [];
+
+  const items = activeSubmenu === null ? mainItems : subItems;
 
   return (
     <>
@@ -87,69 +117,27 @@ export default function Navigation() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <AnimatePresence mode="wait">
-              {activeSubmenu === null ? (
-                <motion.div
-                  key="main-menu"
-                  className="menu-items-wrap"
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
+            <div className="menu-items-wrap" ref={itemsRef}>
+              {items.map((item) => (
+                <a
+                  key={item.name + (activeSubmenu ? 'sub' : 'main')}
+                  className={`menu-link ${item.isBack ? 'menu-back-link' : ''} ${activeSubmenu !== null && !item.isBack ? 'menu-sub-link' : ''}`}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    if (item.isBack) {
+                      closeSubmenu();
+                    } else if (item.subs) {
+                      openSubmenu(item.subs, item.name);
+                    } else {
+                      handleLinkClick(item.href);
+                    }
+                  }}
                 >
-                  {mainItems.map((item, i) => (
-                    <motion.a
-                      key={item.name}
-                      className="menu-link"
-                      href={item.href}
-                      initial={{ opacity: 0, x: 40 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (item.subs) {
-                          openSubmenu(item.subs, item.name);
-                        } else {
-                          handleLinkClick(item.href);
-                        }
-                      }}
-                    >
-                      {item.name}
-                    </motion.a>
-                  ))}
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="sub-menu"
-                  className="menu-items-wrap menu-items-sub"
-                  initial={{ opacity: 1 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
-                  {subItems.map((item, i) => (
-                    <motion.a
-                      key={item.name + i}
-                      className={`menu-link ${item.isBack ? 'menu-back-link' : 'menu-sub-link'}`}
-                      href={item.href}
-                      initial={{ opacity: 0, x: 40 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: 0.05 + i * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        if (item.isBack) {
-                          closeSubmenu();
-                        } else {
-                          handleLinkClick(item.href);
-                        }
-                      }}
-                    >
-                      {item.name}
-                    </motion.a>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                  {item.name}
+                </a>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
