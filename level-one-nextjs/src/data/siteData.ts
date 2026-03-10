@@ -140,7 +140,8 @@ export const pricingTiers = [
       'Custom Security Protocols',
     ],
     btnText: 'Schedule Architecture Call',
-    featured: true,
+    featured: false,
+    gradient: true,
   },
 ];
 
