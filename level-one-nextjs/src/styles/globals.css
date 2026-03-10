@@ -112,8 +112,10 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 
 /* ===== PROCESS 02 — bigger, closer, glass hover (change 5) ===== */
 .process-hex-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
-.process-hex{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;aspect-ratio:3/4;border:1px solid var(--border);transition:all 0.5s var(--ease-out-expo);max-width:320px;margin:0 auto;background:var(--glass-bg);backdrop-filter:var(--glass-blur);box-shadow:var(--glass-shadow)}
+.process-hex{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;aspect-ratio:3/4;border:1px solid var(--glass-border);transition:all 0.5s var(--ease-out-expo);max-width:320px;margin:0 auto;background:var(--glass-bg);backdrop-filter:var(--glass-blur);box-shadow:var(--glass-shadow)}
 .process-hex:hover,.process-hex.glass-hover{border-color:var(--glass-border-hover);box-shadow:var(--glass-shadow-hover);transform:translateY(-6px)}
+.process-hex::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,107,53,0.3),transparent);opacity:0;transition:opacity 0.5s ease;z-index:3}
+.process-hex:hover::before{opacity:1}
 .process-hex-img{position:absolute;inset:0}
 .process-hex-img img{width:100%;height:100%;object-fit:cover}
 .process-hex-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;background:linear-gradient(180deg,transparent 30%,rgba(5,5,7,0.95) 100%);z-index:1}
@@ -159,13 +161,13 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 .pricing-cards-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem;margin-top:2rem;align-items:stretch}
 .pricing-card{background:#1a1a1e;border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:2.5rem 2rem;display:flex;flex-direction:column;transition:all 0.4s ease;position:relative}
 .pricing-card:hover{border-color:rgba(255,255,255,0.12);transform:translateY(-3px)}
-.pricing-card.featured{background:linear-gradient(160deg,#1a1a1e 0%,rgba(255,107,53,0.12) 50%,#1a1a1e 100%);border-color:rgba(255,107,53,0.15)}
-.pricing-card.featured:hover{border-color:rgba(255,107,53,0.25)}
+.pricing-card.featured,.pricing-card.gradient{background:linear-gradient(145deg,#1a1a1e 0%,#2a1a12 35%,#1e1410 55%,#1a1a1e 100%);border-color:rgba(255,107,53,0.1)}
+.pricing-card.featured:hover,.pricing-card.gradient:hover{border-color:rgba(255,107,53,0.2)}
 .best-value-tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:0.6rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--white);background:var(--orange);padding:0.3rem 1rem;border-radius:20px;box-shadow:0 4px 15px rgba(255,107,53,0.3)}
 .pricing-title{font-family:var(--heading);font-size:1.2rem;font-weight:600;margin-bottom:0.75rem;color:var(--white)}
 .pricing-subtitle{font-size:0.82rem;color:var(--text-secondary);line-height:1.6;margin-bottom:2rem}
-.pricing-amount{font-family:var(--heading);font-size:2.5rem;font-weight:700;color:var(--white);display:inline}
-.pricing-period{font-family:var(--body);font-size:0.8rem;color:var(--text-secondary);display:inline;margin-left:0.4rem}
+.pricing-amount{font-family:var(--heading);font-size:2.5rem;font-weight:700;color:var(--white);display:block;white-space:nowrap}
+.pricing-period{font-family:var(--body);font-size:0.8rem;color:var(--text-secondary);display:block;margin-top:0.3rem}
 .pricing-monthly{font-family:var(--mono);font-size:0.72rem;color:var(--text-secondary);margin-top:0.5rem}
 .pricing-commitment{font-size:0.7rem;color:var(--text-muted);margin-top:0.25rem;margin-bottom:1.75rem}
 .pricing-features-label{font-family:var(--body);font-size:0.8rem;color:var(--text-secondary);margin-bottom:0.75rem;font-weight:500}
