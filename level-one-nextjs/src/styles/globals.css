@@ -50,8 +50,8 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1001;display:flex;justify-conten
 .menu-items-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.8rem}
 .menu-items-sub{gap:1.2rem}
 
-.menu-link{font-family:var(--heading);font-size:1.5rem;font-weight:600;color:rgba(255,255,255,0.25);text-decoration:none;letter-spacing:0.05em;cursor:pointer;display:flex;align-items:center;transition:color 0.3s,text-shadow 0.3s,transform 0.3s}
-.menu-link:hover{color:var(--white);text-shadow:0 0 20px rgba(255,255,255,0.4);transform:translateX(6px)}
+.menu-link{font-family:var(--heading);font-size:1.5rem;font-weight:600;color:rgba(255,255,255,0.25);text-decoration:none;letter-spacing:0.05em;cursor:pointer;display:flex;align-items:center;opacity:0;transform:translateX(60px);transition:opacity 0.4s ease,transform 0.4s ease,color 0.3s,text-shadow 0.3s}
+.menu-link:hover{color:var(--white);text-shadow:0 0 20px rgba(255,255,255,0.4);transform:translateX(6px) !important}
 
 .menu-back-link{font-size:0.85rem;font-weight:500;text-transform:uppercase;letter-spacing:0.1em;opacity:0.7}
 .menu-back-link:hover{opacity:1;color:var(--white)}
@@ -192,14 +192,20 @@ section{position:relative;z-index:1;padding:6rem 2rem}
 .pricing-transparency-text{font-size:0.8rem;color:var(--text-secondary);line-height:1.6;max-width:600px;margin:0 auto}
 
 /* ===== FAQ 06 ===== */
-.faq-accordion{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:0.75rem}
+.faq-layout{display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start}
+.faq-left{}
+.faq-left .section-title{text-align:left}
+.faq-left .section-desc{text-align:left;margin-left:0}
+.faq-right{}
+.faq-accordion{display:flex;flex-direction:column;gap:0.6rem}
 .faq-acc-item{background:rgba(30,30,34,0.85);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:0 1.5rem;transition:border-color 0.3s ease,background 0.3s ease}
-.faq-acc-item:hover{border-color:rgba(255,255,255,0.1);background:rgba(30,30,34,0.9)}
-.faq-acc-item.open{border-color:rgba(255,255,255,0.1);background:rgba(40,40,45,0.92)}
-.faq-acc-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 0;background:none;border:none;color:var(--text-secondary);font-family:var(--body);font-size:0.9rem;text-align:left;cursor:pointer;gap:1rem;transition:color 0.3s ease}
+.faq-acc-item:hover{border-color:rgba(255,255,255,0.1)}
+.faq-acc-item.open{border-color:rgba(255,255,255,0.12);background:rgba(35,35,40,0.9)}
+.faq-acc-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:1.15rem 0;background:none;border:none;color:rgba(255,255,255,0.5);font-family:var(--body);font-size:0.88rem;text-align:left;cursor:pointer;gap:1rem;transition:color 0.3s ease}
 .faq-acc-header:hover{color:var(--white)}
 .faq-acc-header.active{color:var(--white)}
-.faq-acc-answer{padding:0 0 1.2rem 0;font-size:0.85rem;color:var(--text-secondary);line-height:1.7}
+.faq-acc-answer-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:1rem 1.25rem;margin:0 0 1.15rem 0}
+.faq-acc-answer-box p{font-size:0.84rem;color:rgba(255,255,255,0.7);line-height:1.7;margin:0}
 
 /* ===== REVIEWS ===== */
 .reviews-carousel{max-width:700px;margin:2rem auto 0;overflow:hidden}
@@ -305,6 +311,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:4r
   .pricing-background-box{padding:3rem 1.5rem}
   .footer-grid{grid-template-columns:1fr 1fr}
   .about-content{margin-right:0}
+  .faq-layout{grid-template-columns:1fr}
   .cal-form-container,.cal-main-container{grid-template-columns:1fr}
   .cal-form-side{display:none}
 }
