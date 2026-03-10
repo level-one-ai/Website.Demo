@@ -15,12 +15,17 @@ interface Tier {
   features: string[];
   btnText: string;
   featured: boolean;
+  gradient?: boolean;
 }
 
 function PricingCard({ tier, index }: { tier: Tier; index: number }) {
+  const classes = ['pricing-card'];
+  if (tier.featured) classes.push('featured');
+  if (tier.gradient) classes.push('gradient');
+
   return (
     <AnimateIn direction="up" delay={0.15 + index * 0.1}>
-      <div className={`pricing-card ${tier.featured ? 'featured' : ''}`}>
+      <div className={classes.join(' ')} style={{ height: '100%' }}>
         {tier.featured && (
           <div className="best-value-tag">Best Value</div>
         )}
@@ -38,7 +43,7 @@ function PricingCard({ tier, index }: { tier: Tier; index: number }) {
             <div key={f} className="pricing-feature">{f}</div>
           ))}
         </div>
-        <button className={`pricing-btn ${tier.featured ? 'solid' : 'outline'}`}>
+        <button className={`pricing-btn ${(tier.featured || tier.gradient) ? 'solid' : 'outline'}`}>
           {tier.btnText}
         </button>
       </div>
